@@ -49,11 +49,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-bg text-text">
-      <TopBar mode={mode} health={health} busy={busy} running={running} repoUrl={state.repoUrl} onRun={run} onReplay={replayDemo} />
+      <TopBar mode={mode} health={health} busy={busy} running={running} repoUrl={state.repoUrl} runId={state.report?.id || undefined} onRun={run} onReplay={replayDemo} />
       <main className="mx-auto max-w-[1360px] space-y-12 px-10 pb-24 pt-8">
         {state.status === "idle" && !state.error && <EmptyState />}
         {state.error && (
-          <div className="rounded-sm border border-red/40 px-4 py-3 text-[13px] text-red">
+          <div className="rounded-sm border border-del/40 px-4 py-3 text-body text-del">
             {state.error}
           </div>
         )}

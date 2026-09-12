@@ -44,7 +44,7 @@ export default function MiningPanel({ status, message, counters, log }: Props) {
           <Counter label="Verified" value={counters.verified} live={status === "verifying"} />
           <Counter label="Discarded" value={counters.discarded} live={status === "verifying"} />
         </div>
-        <div className="label mt-6 text-dim">{counters.scanned} commits scanned</div>
+        <div className="label num mt-6 text-dim">{counters.scanned} commits scanned</div>
       </div>
       <div className="min-w-0 rounded-sm border hairline bg-surface p-4">
         <div className="label mb-3 text-dim">log</div>

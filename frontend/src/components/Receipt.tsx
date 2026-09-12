@@ -38,7 +38,7 @@ export default function Receipt({ result, instance, subject, onClose }: Props) {
   return (
     <>
       <div className="fixed inset-0 z-40 bg-black/50" onClick={onClose} />
-      <aside className="fixed inset-y-0 right-0 z-50 flex w-[55%] min-w-[520px] flex-col border-l hairline bg-surface shadow-2xl">
+      <aside className="fixed inset-y-0 right-0 z-50 flex w-[55%] min-w-[520px] flex-col border-l-2 border-accent bg-surface shadow-2xl">
         <header className="flex items-start justify-between gap-6 px-8 pb-5 pt-6">
           <div className="min-w-0">
             <div className="label mb-2">
@@ -52,7 +52,7 @@ export default function Receipt({ result, instance, subject, onClose }: Props) {
               </span>
             </div>
             {result.cheated && result.cheat_reason && <div className="mt-3 text-[12.5px] text-red">{result.cheat_reason}</div>}
-            {result.error && <div className="mt-3 font-mono text-[12px] text-red">{result.error}</div>}
+            {result.error && <div className="mt-3 font-mono text-[12px] text-del">{result.error}</div>}
           </div>
           <button onClick={onClose} className="label shrink-0 rounded-sm border border-line px-2 py-1 text-[10px] hover:border-line-2 hover:text-text" title="Close (Esc)">
             close
@@ -60,12 +60,12 @@ export default function Receipt({ result, instance, subject, onClose }: Props) {
         </header>
         <div className="min-h-0 flex-1 overflow-y-auto">
           <Section title="issue">
-            <pre className="whitespace-pre-wrap font-sans text-[13.5px] leading-relaxed text-text">{issue}</pre>
+            <pre className="whitespace-pre-wrap font-sans text-row leading-relaxed text-text">{issue}</pre>
             {instance && (
               <div className="mt-4 space-y-1 font-mono text-[11.5px] text-dim">
                 {instance.fail_to_pass.map((t) => (
                   <div key={t} className="break-all">
-                    <span className={result.f2p_results[t] === "passed" ? "text-accent" : "text-red"}>{result.f2p_results[t] === "passed" ? "pass" : "fail"}</span>{" "}
+                    <span className={result.f2p_results[t] === "passed" ? "text-accent" : "text-del"}>{result.f2p_results[t] === "passed" ? "pass" : "fail"}</span>{" "}
                     {t}
                   </div>
                 ))}

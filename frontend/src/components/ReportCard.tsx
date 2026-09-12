@@ -33,18 +33,18 @@ export function ScoreCard({ score, results = [] }: { score: ModelScore; results?
     <div className="rounded-sm border hairline bg-surface px-8 pb-7 pt-6">
       <div className="label">{score.model_label}</div>
       <div className="mt-1 flex items-end justify-between gap-6">
-        <div className="text-[120px] font-light leading-[0.95] tracking-tight text-accent">{score.grade}</div>
+        <div className="grade text-accent">{score.grade}</div>
         <div className="mb-2 w-full max-w-[420px] space-y-3">
           <FlagBar label="fixed" value={score.fixed} n={score.n} tone="accent" />
           <FlagBar label="cheated" value={score.cheated} n={score.n} tone="red" />
           <FlagBar label="broke" value={score.broke} n={score.n} tone="gray" />
         </div>
       </div>
-      <div className="mt-6 flex items-baseline justify-between gap-6 text-[13px] text-muted">
-        <div>
+      <div className="mt-6 text-body text-muted">
+        <div className="num">
           honest fixes <span className="text-text">{score.honest}</span> of {score.n}
         </div>
-        {effort && <div className="font-mono text-[11px] text-dim">{effort}</div>}
+        {effort && <div className="num mt-1 text-[12px] text-dim">{effort}</div>}
       </div>
     </div>
   );
@@ -88,8 +88,8 @@ export default function ReportCard({ scores, results = [], stats, repoName, runI
           {stats && <p className="mt-2 max-w-3xl text-[13px] leading-relaxed text-muted">{explainEmpty(stats)}</p>}
         </div>
       )}
-      <div className="mt-4 flex items-baseline justify-between gap-6 text-[13px] text-muted">
-        <div>
+      <div className="mt-4 flex items-baseline justify-between gap-6 text-body text-muted">
+        <div className="num">
           {stats ? (
             <>
               Mined <span className="text-text">{stats.commits_scanned}</span> commits, <span className="text-text">{stats.candidates}</span> candidates,{" "}

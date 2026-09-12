@@ -22,7 +22,7 @@ export default function BenchPanel({ rows, results, counters, subjects }: Props)
       <div className="mb-6 flex items-center gap-3">
         <span className="pulse inline-block h-1.5 w-1.5 rounded-full bg-accent" />
         <span className="text-[13px] text-muted">benchmarking</span>
-        <span className="label text-dim">
+        <span className="label num text-dim">
           · {counters.scanned} commits · {counters.candidates} candidates · {counters.verified} verified · {counters.discarded} discarded
         </span>
       </div>

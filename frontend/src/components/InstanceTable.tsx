@@ -33,26 +33,36 @@ export default function InstanceTable({ rows, models, results, bench, onOpen }: 
       </div>
       {rows.map((row) => {
         const first = models.find((m) => byKey.get(benchKey(row.id, m.id)));
+        const openable = Boolean(first);
         return (
           <div
             key={row.id}
-            className="grid cursor-pointer items-center gap-4 border-b hairline px-3 py-3 transition-colors hover:bg-surface"
+            role={openable ? "button" : undefined}
+            tabIndex={openable ? 0 : undefined}
+            className={`group grid items-center gap-4 rounded-sm border-b hairline px-3 py-3 transition-colors ${openable ? "cursor-pointer hover:bg-surface-2 focus-visible:bg-surface-2" : ""}`}
             style={{ gridTemplateColumns: cols }}
             onClick={() => first && onOpen(row.id, first.id)}
+            onKeyDown={(e) => {
+              if (first && (e.key === "Enter" || e.key === " ")) {
+                e.preventDefault();
+                onOpen(row.id, first.id);
+              }
+            }}
           >
             <div className="flex min-w-0 items-baseline gap-3">
               <span className="font-mono text-[12px] text-accent">{row.id}</span>
-              <span className="truncate text-[13.5px]">{row.subject}</span>
+              <span className="truncate text-row">{row.subject}</span>
             </div>
             <span className="num text-right font-mono text-[12px] text-muted">{row.f2p}</span>
-            {models.map((m) => {
+            {models.map((m, mi) => {
               const key = benchKey(row.id, m.id);
               const res = byKey.get(key);
               const b = bench[key];
+              const last = mi === models.length - 1;
               return (
                 <div
                   key={m.id}
-                  className="min-w-0"
+                  className="flex min-w-0 items-center justify-between gap-3"
                   onClick={(e) => {
                     if (!res) return;
                     e.stopPropagation();
@@ -67,6 +77,9 @@ export default function InstanceTable({ rows, models, results, bench, onOpen }: 
                     </span>
                   ) : (
                     <span className="text-dim">—</span>
+                  )}
+                  {last && openable && (
+                    <span className="label shrink-0 text-muted opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">receipt</span>
                   )}
                 </div>
               );
