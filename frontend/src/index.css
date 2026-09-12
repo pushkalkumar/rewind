@@ -1,0 +1,234 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  --color-bg: #0b0b0c;
+  --color-surface: #131316;
+  --color-surface-2: #18181c;
+  --color-line: #26262b;
+  --color-line-2: #303036;
+  --color-text: #e8e8ec;
+  --color-muted: #8a8a93;
+  --color-dim: #5c5c66;
+  --color-accent: #ffb020;
+  --color-red: #ff4d4f;
+  --color-add: #7fcf8a;
+  --color-del: #e0808a;
+}
+
+html {
+  background: var(--color-bg);
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01", "tnum";
+  -webkit-font-smoothing: antialiased;
+}
+
+body[data-print="1"] {
+  background: #fff;
+  color: #111;
+  color-scheme: light;
+}
+
+::selection {
+  background: rgba(255, 176, 32, 0.28);
+}
+
+.label {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.hairline {
+  border-color: var(--color-line);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* log lines */
+.log-line {
+  font-variant-ligatures: none;
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: logIn 160ms ease-out;
+}
+@keyframes logIn {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pulse {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* diff */
+.diff-line {
+  font-variant-ligatures: none;
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  min-height: 1.45rem;
+  line-height: 1.45rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.diff-line .ln {
+  color: var(--color-dim);
+  text-align: right;
+  padding-right: 0.75rem;
+  user-select: none;
+}
+.diff-line .code {
+  white-space: pre;
+  padding-right: 1rem;
+}
+.diff-line.add {
+  background: rgba(127, 207, 138, 0.09);
+}
+.diff-line.del {
+  background: rgba(224, 128, 138, 0.09);
+}
+.diff-line.hunk {
+  color: var(--color-dim);
+  background: var(--color-surface-2);
+}
+.diff-line.meta {
+  color: var(--color-dim);
+}
+.diff-line.cheat,
+.diff-line.cheat .token {
+  background: var(--color-red);
+  color: #fff;
+}
+.diff-line.cheat .ln {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* prism python palette: restrained */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--color-dim);
+}
+.token.punctuation {
+  color: var(--color-muted);
+}
+.token.keyword {
+  color: #a3b8d9;
+}
+.token.builtin,
+.token.class-name {
+  color: #cdb7e6;
+}
+.token.string,
+.token.triple-quoted-string,
+.token.char {
+  color: #9fcf9a;
+}
+.token.number,
+.token.boolean {
+  color: #d9c08a;
+}
+.token.function {
+  color: #e8e8ec;
+}
+.token.operator {
+  color: var(--color-muted);
+}
+.token.decorator,
+.token.annotation {
+  color: #d9c08a;
+}
+
+/* scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-2) transparent;
+}
+
+/* print page */
+.print-root {
+  background: #fff;
+  color: #111;
+  font-family: var(--font-sans);
+}
+.print-root .label {
+  color: #666;
+}
+.print-root .diff-line.add {
+  background: #f0f5f0;
+}
+.print-root .diff-line.del {
+  background: #f7eeee;
+}
+.print-root .diff-line.hunk {
+  background: #f3f3f3;
+  color: #777;
+}
+.print-root .diff-line .ln {
+  color: #999;
+}
+.print-root .diff-line.cheat,
+.print-root .diff-line.cheat .token {
+  background: #fff;
+  color: #111;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: #ffb020;
+  text-decoration-thickness: 2px;
+}
+.print-root .token {
+  color: #111;
+}
+.print-root .token.comment {
+  color: #777;
+}
+
+@page {
+  size: auto;
+  margin: 14mm;
+}
+@media print {
+  html,
+  body {
+    background: #fff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-root {
+    padding: 0 !important;
+  }
+}

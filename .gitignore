@@ -1,0 +1,7 @@
+.rewind/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+frontend/*.tsbuildinfo
+.env
